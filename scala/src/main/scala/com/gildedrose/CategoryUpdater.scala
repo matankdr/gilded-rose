@@ -68,12 +68,10 @@ object CategoryUpdater {
   private def isBackStagePass(item: Item): Boolean =  catalog(BackStagePass).contains(item.name.trim)
   private def isAged(item: Item): Boolean =           catalog(Aged).contains(item.name.trim)
 
-  //Backstage passes to a Metallica concert
-  //Backstage passes to Metallica concert
-
   private def itemFieldsAreValid(item: Item): Either[NegativeItemFieldError, Unit] = {
-    if(item.sellIn < 0 && item.quality < 0) Left(NegativeItemFieldError(item, SellIn, Quality)) else
-      if(item.sellIn < 0) Left(NegativeItemFieldError(item, SellIn)) else
-        if(item.quality < 0) Left(NegativeItemFieldError(item, Quality)) else Right(())
+    if (item.sellIn < 0 && item.quality < 0) Left(NegativeItemFieldError(item, SellIn, Quality))
+    else if(item.sellIn < 0)                 Left(NegativeItemFieldError(item, SellIn))
+    else if(item.quality < 0)                Left(NegativeItemFieldError(item, Quality))
+    else                                     Right(())
   }
 }
